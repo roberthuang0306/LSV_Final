@@ -42,6 +42,12 @@ Matrix Circuit::matrix(){
     
     return _matrix;
 }
+void Circuit::gateNameReverse(){
+    for( auto&gate : _circuit){
+        gate.first = inputNum-1-gate.first;
+        gate.second = inputNum-1-gate.second;
+    }
+}
 
 void Circuit::setInputNum( int i){
     inputNum = i;
@@ -66,6 +72,7 @@ ostream& operator<< ( ostream& os, const Circuit& circuit){
     for( const auto& CNOTGate: circuit._circuit){
         os << '\n' << CNOTGate;
     }
+    os << endl;
     return os;
 }
 

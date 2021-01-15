@@ -2,25 +2,11 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 PROJECT(CNOT_syn)
 SET(BIN_NAME CNOT_syn)
 
-SET(CMAKE_CXX_FLAGS "-static -O3 -std=c++11 -DIL_STD -lm -pthread ")
-#SET(CMAKE_CXX_FLAGS "-g -std=c++17 -DIL_STD -lm -pthread")
+SET(CMAKE_CXX_FLAGS "-static -O3 -std=c++17 -DIL_STD -lm -pthread ")
 SET(CMAKE_C_FLAGS "-static -O3 -c ")
 
-#SET(CMAKE_CXX_FLAGS "-O3 -Wall -std=c++17")
-#SET(CMAKE_C_FLAGS "-O3 -Wall -c ")
-#SET(CMAKE_CXX_FLAGS "-O3 -Wall -std=c++17")
-#SET(CMAKE_C_FLAGS "-O3 -Wall -c ")
-
-#SET(CMAKE_CXX_FLAGS "-O3 -pg -Wall -no-pie -Wextra -std=c++17 -fPIC -pthread")
-#SET(CMAKE_CXX_FLAGS "-g -Wall -Wextra -std=c++11 -fPIC -static -Wl,--whole-archive -lpthread -Wl,--no-whole-archive -Wno-class-memaccess")
-
-# SET(CMAKE_CXX_FLAGS "-static -static-libgcc -static-libstdc++ -Wall -g -std=c++17 -DIL_STD -lm -pthread")
-# SET(CMAKE_CXX_FLAGS "-static -static-libgcc -static-libstdc++ -Wall -O3 -std=c++17 -DIL_STD -lm -pthread")
-# SET(CMAKE_CXX_FLAGS "-static -static-libgcc -static-libstdc++ -O3 -std=c++17 -DIL_STD -lm -pthread -DNDEBUG")
-# SET(CMAKE_CXX_FLAGS "-static -static-libgcc -static-libstdc++ -Wall -O3 -std=c++17 -DIL_STD -lm -pthread")
 
 SET(BASEPATH ${PROJECT_SOURCE_DIR})
-#SET(BASEPATH .)
 SET(SRCPATH ${BASEPATH}/src)
 SET(BINPATH ${BASEPATH}/bin)
 SET(INCPATH ${BASEPATH}/include)

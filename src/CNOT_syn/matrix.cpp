@@ -1,7 +1,4 @@
 #include"matrix.hpp"
-extern "C" {
-#include "flute/flute.h"
-}
 
 using namespace std;
 Matrix::Matrix( int n, int m){
@@ -16,28 +13,32 @@ Matrix::Matrix( pair<int, int> size){
 
 Matrix::Matrix(){}
 
-Circuit Matrix::circuit( int m){//TODO TEST
-    readLUT();
-    int x[MAXD];
-    int y[MAXD];
-    x[0] = 0;y[0] = 0;
-    x[1] = 0;y[1] = 2;
-    x[2] = 2;y[2] = 1;
-    x[3] = 1;y[3] = 3;
-    Tree fluteTree = flute(4,x,y,ACCURACY);
-    printtree(fluteTree);
-
-    Circuit circuit_l = Lwr_CNOT_Synth( m);
+Circuit Matrix::circuit( int m){
+    Circuit circuit_l = Lwr_CNOT_Synth( m, NULL, false);
     transpose();
-    Circuit circuit_u = Lwr_CNOT_Synth( m);
+    Circuit circuit_u = Lwr_CNOT_Synth( m, NULL, true);
     circuit_u.switchCtrlTarget();
     circuit_l.reverse();                     // here we reverse circuit_l not circuit_u because our vector operation is push_back not push_front, which are the paper's operation
     return (circuit_u+=circuit_l);
 }
+
 Circuit Matrix::circuit(){
-    
-    return circuit( floor( log2(rowSize())));
+    int m = floor( log2(rowSize()));
+    return circuit( m);
 }
+
+Circuit Matrix::circuit( CGraph* cgraph){
+    if( cgraph != NULL ){
+        readLUT();
+    }
+    Circuit circuit_l = Lwr_CNOT_Synth( 1, cgraph, false);
+    transpose();
+    Circuit circuit_u = Lwr_CNOT_Synth( 1, cgraph, true);
+    circuit_u.switchCtrlTarget();
+    circuit_l.reverse();                     // here we reverse circuit_l not circuit_u because our vector operation is push_back not push_front, which are the paper's operation
+    return (circuit_u+=circuit_l);
+}
+
 
 void Matrix::transpose(){
     auto _backUpMatrix = _matrix;
@@ -50,7 +51,14 @@ void Matrix::transpose(){
     // cout << *this << endl;
 }
 
-Circuit Matrix::Lwr_CNOT_Synth( int m){
+void Matrix::totalReverse(){
+    reverse(_matrix.begin(), _matrix.end());
+    for( auto& row:_matrix){
+        reverse(row.begin(), row.end());
+    }
+}
+
+Circuit Matrix::Lwr_CNOT_Synth( int m, CGraph* cgraph=NULL, bool u=false){
     Circuit circuit(rowSize());
     vector< vector< int> > columnSections((columnSize()/m), vector< int>(m));
     if(columnSize()%m)
@@ -64,24 +72,40 @@ Circuit Matrix::Lwr_CNOT_Synth( int m){
         for( auto& pattern: patterns){
             pattern = -1;
         }
-        for( size_t row= columnSections[sec][0]; row < rowSize(); ++row){
-            int subRowPattern = 0;
-            for( size_t digit= 0; digit< columnSections[sec].size(); digit++){
-                int column = columnSections[sec][digit];
-                subRowPattern |= ((int)_matrix[row][column]) << digit;
+        int ctrl = -1;
+        vector< int> targets;
+
+        if ( cgraph == NULL){
+            for( size_t row= columnSections[sec][0]; row < rowSize(); ++row){
+                int subRowPattern = 0;
+                for( size_t digit= 0; digit< columnSections[sec].size(); digit++){
+                    int column = columnSections[sec][digit];
+                    subRowPattern |= ((int)_matrix[row][column]) << digit;
+                }
+                if( subRowPattern == 0) continue;
+                if( patterns[subRowPattern] == -1){
+                    patterns[subRowPattern] = row;
+                }
+                else{
+                    int fromRow = patterns[subRowPattern];
+                    int toRow = row;
+                    // cout << "Step A: add row " << fromRow << " to row " << toRow << endl;
+                    // rowOperation(fromRow, toRow);
+                    // circuit.push_back(make_pair(fromRow, toRow));
+                    // cout << *this << endl;
+                    if ( ctrl == -1) ctrl = fromRow;
+                    targets.push_back(toRow);
+                }
             }
-            if( subRowPattern == 0) continue;
-            if( patterns[subRowPattern] == -1){
-                patterns[subRowPattern] = row;
+            for( auto& target: targets){
+                    // cout << "Step A: add row " << fromRow << " to row " << toRow << endl;
+                    rowOperation(ctrl, target);
+                    circuit.push_back(make_pair(ctrl, target));
+                    // cout << *this << endl;
             }
-            else{
-                int fromRow = patterns[subRowPattern];
-                int toRow = row;
-                // cout << "Step A: add row " << fromRow << " to row " << toRow << endl;
-                rowOperation(fromRow, toRow);
-                circuit.push_back(make_pair(fromRow, toRow));
-                // cout << *this << endl;
-            }
+
+            ctrl = -1;
+            targets.clear();
         }
         for( auto& column: columnSections[sec]){
             bool diagOne = true;
@@ -92,20 +116,55 @@ Circuit Matrix::Lwr_CNOT_Synth( int m){
                     if ( diagOne == false){
                         int fromRow = row;
                         int toRow = column;
-                        // cout << "Step B: Add row " << fromRow << " to row " << toRow << endl;
-                        rowOperation(fromRow, toRow);
-                        circuit.push_back(make_pair(fromRow, toRow));
-                        // cout << *this << endl;
+                        if( cgraph == NULL){
+                            // cout << "Step B: Add row " << fromRow << " to row " << toRow << endl;
+                            rowOperation(fromRow, toRow);
+                            circuit.push_back(make_pair(fromRow, toRow));
+                        }
+                        else{
+                            vector< int> singleTarget = {toRow};
+                            vector< pair< int, int> >& rowOperations = cgraph->rowOperations(fromRow, singleTarget, u);
+                            for( const auto&[ctrl, target]: rowOperations){
+                                // cout << "Step B: add row " << ctrl << " to row " << target<< endl;
+                                rowOperation(ctrl, target);
+                                circuit.push_back(make_pair(ctrl, target));
+                                // cout << *this << endl;
+                            }
+                            cout << "step B" << endl;
+                            cout << *this << endl;
+                        }
                         diagOne = true;
                     }
                     int fromRow = column;
                     int toRow = row;
                     // cout << "Step C: Add row " << fromRow << " to row " << toRow << endl;
-                    rowOperation(fromRow, toRow);
-                    circuit.push_back(make_pair(fromRow, toRow));
+                    // rowOperation(fromRow, toRow);
+                    // circuit.push_back(make_pair(fromRow, toRow));
                     // cout << *this << endl;
+                    if ( ctrl == -1) ctrl = fromRow;
+                    targets.push_back(toRow);
                 }
             }
+        }
+        if( cgraph == NULL){
+            for( auto& target: targets){
+                    // cout << "Step C: Add row " << ctrl << " to row " << target << endl;
+                    rowOperation(ctrl, target);
+                    circuit.push_back(make_pair(ctrl, target));
+                    // cout << *this << endl;
+            }
+        }
+        else{
+            //TODO
+            vector< pair< int, int> >& rowOperations = cgraph->rowOperations(ctrl, targets, u);
+            for( const auto&[ctrl, target]: rowOperations){
+                    // cout << "Step C: add row " << ctrl << " to row " << target<< endl;
+                    rowOperation(ctrl, target);
+                    circuit.push_back(make_pair(ctrl, target));
+                    // cout << *this << endl;
+            }
+            cout << "step C" << endl;
+            cout << *this << endl;
         }
 
     }
@@ -150,4 +209,28 @@ ostream& operator<< ( ostream& os, const Matrix& matrix){
         os << '\n';
     }
     return os;
+}
+
+istream& operator>> ( istream& is, Matrix& matrix){
+    string header;
+    getline(is, header);
+    string delimiter = "=";
+    int n = std::stoi(header.substr(header.find(delimiter)+1, header.length()));
+    matrix.rowResize(n);
+    matrix.columnResize(n);
+    string Row;
+    int rowCount = 0;
+    int columnCount = 0;
+    delimiter = " ";
+    while(getline(is, Row)){
+        stringstream iss( Row );
+        bool element;
+        while ( iss >> element ){
+        matrix._matrix[rowCount][columnCount] = element;
+        ++columnCount;
+        if( columnCount == n) columnCount =0;
+        }
+        ++rowCount;
+    }
+    return is;
 }

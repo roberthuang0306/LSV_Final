@@ -17,6 +17,7 @@ class Circuit{
         Circuit( int);
         void switchCtrlTarget();
         void reverse();
+        void gateNameReverse();
         void push_back(pair< int, int>);
         void setInputNum( int);
         int  getInputNum();

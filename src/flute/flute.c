@@ -659,9 +659,7 @@ Tree flute(int d, DTYPE x[], DTYPE y[], int acc)
                 s[i] = ptp[i]->o;
             }
         }
-        printf("test=%d\n", 6);
         t = flutes(d, xs, ys, s, acc);
-        printf("test=%d\n", 7);
 
         free(xs);
         free(ys);
