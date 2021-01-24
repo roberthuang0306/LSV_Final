@@ -1,0 +1,89 @@
+This folder contains the following materials:
+- report_B0690170.pdf
+    Final project's report of LSV class
+
+- reference/
+    There are four references in this folder, with the same order as the report's last section.
+
+- src/
+    source code of the re-implementation of 
+    1. reference/referencep[3].pdf
+    2. reference/referencep[4].pdf
+    while CNOT_syn/ is a folder contain the code I wrote, 
+    flute/ is a folder contain the source code of FLUTE[reference/referencep[1].pdf].
+    To compile, simply type:
+        $ make
+    the resulting binary CNOT_syn will be located in bin/. Please make sure CMake is installed.
+
+    To run the program:
+        $ ./bin/CNOT_syn [-l] [-i inputFile] [-cG cgraphFile] -o outputFile
+    The flag [-l] is to decide to run code in a loop or not.
+    If flag [-l] is on, "-o outputFile" thransform to "-o outputDirectory".
+
+    The flag [-i inputFile] specify the inputFile, and it should be a .circuit file.
+    In the .circuit file, the first line is to specify the number of qubits,
+    the remainder is the circuit. A example is given in ./example/example_input.circuit.
+    For example:
+        4 3
+    means a CNOT gate with q_4 being the control and q_3 being the target.
+    And the visualization of ./example/example_input.circuit is given in 
+    ./example/exampleFig/example_input.png
+
+    The flag [-cG cgraph] specify the connectivity graph, and it should be a .cgraph file.
+    In the .cgraph file, the first line is to specify the number of qubits,
+    the remainder is the graph. A example is given in ./example/example_cgraph.cgraph.
+    For example:
+        0 (0,1) {1,5}
+    means q_0 has a coordinate (0,0) and is connected to q_1 and q_5.
+    And the visualization of ./example/example_cgraph.cgraph is given in 
+    ./example/exampleFig/example_cgraph.cgraph
+
+- pythonFiles
+    Contain all python files used to visualize the circuit and graph, 
+    and the file used to plot Fig.5-8.
+    To visualize a .circuit:
+    $python3 pythonFiles/Cvisualize.py intput.circuit output
+    To visualize a .cgraph:
+    $python3 pythonFiles/Gvisualize.py intput.cgraph output
+
+- shellFiles
+    Contain all shell script used to plot Fig.5-8.
+
+- slides
+    presentation slides, include .pdf and .pptx
+
+
+=====================================================================================================================================
+To run the example circuit:
+    $ ./bin/CNOT_syn -i example/example_input.circuit -o example/example_output.circuit
+To visualize:
+    $python3 pythonFiles/Cvisualize.py  example/example_output.circuit example/exampleFig/example_output
+Note that there will be a example/exampleFig/example_output.svg and example/exampleFig/example_output.png
+been generated
+
+To run the example circuit with .cgraph:
+    $ ./bin/CNOT_syn -cG example/example_cgraph.cgraph -i example/example_input.circuit -o example/example_output_withCG.circuit
+To visualize:
+    $ python3 pythonFiles/Cvisualize.py example/example_output_withCG.circuit example/exampleFig/example_output_withCG
+Note that there will be a example/exampleFig/example_output_withCG.svg and example/exampleFig/example_output_withCG.png
+been generated
+=====================================================================================================================================
+To reproduce Fig.5, Fig.7 in report_B06901170.pdf:
+    $ ./bin/CNOT_syn -l -o Log&
+    $ ./shellFiles/plot.sh Log Plot
+The resulting figures will be in Plot/.
+Note that the first command will run for hours. However, the figures can be ploted in any time, regardless of the first command is running or not.
+
+To reproduce Fig.6, Fig.8 in report_B06901170.pdf:
+    $ ./bin/CNOT_syn -l -cG rand -o cgLog&
+    $ ./shellFiles/plotCG.sh cgLog cgPlot
+The resulting figures will be in cgPlot/.
+Note that the first command will run for hours. However, the figures can be ploted in any time, regardless of the first command is running or not.
+
+To save times, folders Log/ Plot/ cgLog/ cgPlot/ already have files in it. However, it is OK to run again.
+
+
+
+
+
+    

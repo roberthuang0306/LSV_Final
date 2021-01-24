@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="2880.0" height="1080.0" viewBox="0 -27 72 27">
+<defs>
+</defs>
+<text x="69" y="-5" font-size="3">0'</text>
+<text x="1.5" y="-5" font-size="3">0</text>
+<path d="M6,-6 L66,-6" stroke-width="0.2" stroke="black" />
+<text x="69" y="-8" font-size="3">1'</text>
+<text x="1.5" y="-8" font-size="3">1</text>
+<path d="M6,-9 L66,-9" stroke-width="0.2" stroke="black" />
+<text x="69" y="-11" font-size="3">2'</text>
+<text x="1.5" y="-11" font-size="3">2</text>
+<path d="M6,-12 L66,-12" stroke-width="0.2" stroke="black" />
+<text x="69" y="-14" font-size="3">3'</text>
+<text x="1.5" y="-14" font-size="3">3</text>
+<path d="M6,-15 L66,-15" stroke-width="0.2" stroke="black" />
+<text x="69" y="-17" font-size="3">4'</text>
+<text x="1.5" y="-17" font-size="3">4</text>
+<path d="M6,-18 L66,-18" stroke-width="0.2" stroke="black" />
+<text x="69" y="-20" font-size="3">5'</text>
+<text x="1.5" y="-20" font-size="3">5</text>
+<path d="M6,-21 L66,-21" stroke-width="0.2" stroke="black" />
+<path d="M9,-9 L9,-6" stroke-width="0.2" stroke="black" />
+<circle cx="9" cy="-9" r="0.5" />
+<circle cx="9" cy="-6" r="0.75" fill="white" fill-opacity="0.0" stroke-width="0.2" stroke="black" />
+<path d="M8.25,-6 L9.75,-6" stroke-width="0.2" stroke="black" />
+<path d="M9,-5.25 L9,-6.75" stroke-width="0.2" stroke="black" />
+<path d="M12,-15 L12,-18" stroke-width="0.2" stroke="black" />
+<circle cx="12" cy="-15" r="0.5" />
+<circle cx="12" cy="-18" r="0.75" fill="white" fill-opacity="0.0" stroke-width="0.2" stroke="black" />
+<path d="M11.25,-18 L12.75,-18" stroke-width="0.2" stroke="black" />
+<path d="M12,-17.25 L12,-18.75" stroke-width="0.2" stroke="black" />
+<path d="M15,-18 L15,-9" stroke-width="0.2" stroke="black" />
+<circle cx="15" cy="-18" r="0.5" />
+<circle cx="15" cy="-9" r="0.75" fill="white" fill-opacity="0.0" stroke-width="0.2" stroke="black" />
+<path d="M14.25,-9 L15.75,-9" stroke-width="0.2" stroke="black" />
+<path d="M15,-8.25 L15,-9.75" stroke-width="0.2" stroke="black" />
+<path d="M18,-15 L18,-18" stroke-width="0.2" stroke="black" />
+<circle cx="18" cy="-15" r="0.5" />
+<circle cx="18" cy="-18" r="0.75" fill="white" fill-opacity="0.0" stroke-width="0.2" stroke="black" />
+<path d="M17.25,-18 L18.75,-18" stroke-width="0.2" stroke="black" />
+<path d="M18,-17.25 L18,-18.75" stroke-width="0.2" stroke="black" />
+<path d="M21,-15 L21,-12" stroke-width="0.2" stroke="black" />
+<circle cx="21" cy="-15" r="0.5" />
+<circle cx="21" cy="-12" r="0.75" fill="white" fill-opacity="0.0" stroke-width="0.2" stroke="black" />
+<path d="M20.25,-12 L21.75,-12" stroke-width="0.2" stroke="black" />
+<path d="M21,-11.25 L21,-12.75" stroke-width="0.2" stroke="black" />
+<path d="M24,-21 L24,-18" stroke-width="0.2" stroke="black" />
+<circle cx="24" cy="-21" r="0.5" />
+<circle cx="24" cy="-18" r="0.75" fill="white" fill-opacity="0.0" stroke-width="0.2" stroke="black" />
+<path d="M23.25,-18 L24.75,-18" stroke-width="0.2" stroke="black" />
+<path d="M24,-17.25 L24,-18.75" stroke-width="0.2" stroke="black" />
+<path d="M27,-15 L27,-18" stroke-width="0.2" stroke="black" />
+<circle cx="27" cy="-15" r="0.5" />
+<circle cx="27" cy="-18" r="0.75" fill="white" fill-opacity="0.0" stroke-width="0.2" stroke="black" />
+<path d="M26.25,-18 L27.75,-18" stroke-width="0.2" stroke="black" />
+<path d="M27,-17.25 L27,-18.75" stroke-width="0.2" stroke="black" />
+<path d="M30,-18 L30,-21" stroke-width="0.2" stroke="black" />
+<circle cx="30" cy="-18" r="0.5" />
+<circle cx="30" cy="-21" r="0.75" fill="white" fill-opacity="0.0" stroke-width="0.2" stroke="black" />
+<path d="M29.25,-21 L30.75,-21" stroke-width="0.2" stroke="black" />
+<path d="M30,-20.25 L30,-21.75" stroke-width="0.2" stroke="black" />
+<path d="M33,-12 L33,-15" stroke-width="0.2" stroke="black" />
+<circle cx="33" cy="-12" r="0.5" />
+<circle cx="33" cy="-15" r="0.75" fill="white" fill-opacity="0.0" stroke-width="0.2" stroke="black" />
+<path d="M32.25,-15 L33.75,-15" stroke-width="0.2" stroke="black" />
+<path d="M33,-14.25 L33,-15.75" stroke-width="0.2" stroke="black" />
+<path d="M36,-15 L36,-18" stroke-width="0.2" stroke="black" />
+<circle cx="36" cy="-15" r="0.5" />
+<circle cx="36" cy="-18" r="0.75" fill="white" fill-opacity="0.0" stroke-width="0.2" stroke="black" />
+<path d="M35.25,-18 L36.75,-18" stroke-width="0.2" stroke="black" />
+<path d="M36,-17.25 L36,-18.75" stroke-width="0.2" stroke="black" />
+<path d="M39,-18 L39,-21" stroke-width="0.2" stroke="black" />
+<circle cx="39" cy="-18" r="0.5" />
+<circle cx="39" cy="-21" r="0.75" fill="white" fill-opacity="0.0" stroke-width="0.2" stroke="black" />
+<path d="M38.25,-21 L39.75,-21" stroke-width="0.2" stroke="black" />
+<path d="M39,-20.25 L39,-21.75" stroke-width="0.2" stroke="black" />
+<path d="M42,-15 L42,-18" stroke-width="0.2" stroke="black" />
+<circle cx="42" cy="-15" r="0.5" />
+<circle cx="42" cy="-18" r="0.75" fill="white" fill-opacity="0.0" stroke-width="0.2" stroke="black" />
+<path d="M41.25,-18 L42.75,-18" stroke-width="0.2" stroke="black" />
+<path d="M42,-17.25 L42,-18.75" stroke-width="0.2" stroke="black" />
+<path d="M45,-18 L45,-21" stroke-width="0.2" stroke="black" />
+<circle cx="45" cy="-18" r="0.5" />
+<circle cx="45" cy="-21" r="0.75" fill="white" fill-opacity="0.0" stroke-width="0.2" stroke="black" />
+<path d="M44.25,-21 L45.75,-21" stroke-width="0.2" stroke="black" />
+<path d="M45,-20.25 L45,-21.75" stroke-width="0.2" stroke="black" />
+<path d="M48,-15 L48,-12" stroke-width="0.2" stroke="black" />
+<circle cx="48" cy="-15" r="0.5" />
+<circle cx="48" cy="-12" r="0.75" fill="white" fill-opacity="0.0" stroke-width="0.2" stroke="black" />
+<path d="M47.25,-12 L48.75,-12" stroke-width="0.2" stroke="black" />
+<path d="M48,-11.25 L48,-12.75" stroke-width="0.2" stroke="black" />
+<path d="M51,-9 L51,-18" stroke-width="0.2" stroke="black" />
+<circle cx="51" cy="-9" r="0.5" />
+<circle cx="51" cy="-18" r="0.75" fill="white" fill-opacity="0.0" stroke-width="0.2" stroke="black" />
+<path d="M50.25,-18 L51.75,-18" stroke-width="0.2" stroke="black" />
+<path d="M51,-17.25 L51,-18.75" stroke-width="0.2" stroke="black" />
+<path d="M54,-9 L54,-12" stroke-width="0.2" stroke="black" />
+<circle cx="54" cy="-9" r="0.5" />
+<circle cx="54" cy="-12" r="0.75" fill="white" fill-opacity="0.0" stroke-width="0.2" stroke="black" />
+<path d="M53.25,-12 L54.75,-12" stroke-width="0.2" stroke="black" />
+<path d="M54,-11.25 L54,-12.75" stroke-width="0.2" stroke="black" />
+<path d="M57,-6 L57,-9" stroke-width="0.2" stroke="black" />
+<circle cx="57" cy="-6" r="0.5" />
+<circle cx="57" cy="-9" r="0.75" fill="white" fill-opacity="0.0" stroke-width="0.2" stroke="black" />
+<path d="M56.25,-9 L57.75,-9" stroke-width="0.2" stroke="black" />
+<path d="M57,-8.25 L57,-9.75" stroke-width="0.2" stroke="black" />
+<path d="M60,-9 L60,-18" stroke-width="0.2" stroke="black" />
+<circle cx="60" cy="-9" r="0.5" />
+<circle cx="60" cy="-18" r="0.75" fill="white" fill-opacity="0.0" stroke-width="0.2" stroke="black" />
+<path d="M59.25,-18 L60.75,-18" stroke-width="0.2" stroke="black" />
+<path d="M60,-17.25 L60,-18.75" stroke-width="0.2" stroke="black" />
+<path d="M63,-18 L63,-15" stroke-width="0.2" stroke="black" />
+<circle cx="63" cy="-18" r="0.5" />
+<circle cx="63" cy="-15" r="0.75" fill="white" fill-opacity="0.0" stroke-width="0.2" stroke="black" />
+<path d="M62.25,-15 L63.75,-15" stroke-width="0.2" stroke="black" />
+<path d="M63,-14.25 L63,-15.75" stroke-width="0.2" stroke="black" />
+</svg>
