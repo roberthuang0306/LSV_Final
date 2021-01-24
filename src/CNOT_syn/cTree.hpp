@@ -28,6 +28,7 @@ class CTree{
         void setIsTerminal( int);
         bool getIsTerminal( int);
         bool getIsLeaf( int);
+        int  getQid( int);
         void trim();
         void setIsSteinerNode( int);
         void setEdge(int, int);

@@ -8,7 +8,9 @@
 #include<algorithm>
 #include<tuple>
 #include"matrix.hpp"
+#include"cGraph.hpp"
 class Matrix;
+class CGraph;
 
 using namespace std;
 class Circuit{
@@ -23,6 +25,7 @@ class Circuit{
         int  getInputNum();
         int  getCircuitSize();
         Matrix matrix();
+        bool physicalValid( CGraph*);
         Circuit& operator+=(const Circuit&);
         bool operator==(const Circuit&);
         friend ostream& operator<< ( ostream&, const Circuit&);

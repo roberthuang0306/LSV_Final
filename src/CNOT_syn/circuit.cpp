@@ -49,6 +49,13 @@ void Circuit::gateNameReverse(){
     }
 }
 
+bool Circuit::physicalValid( CGraph* cgraph){
+    for( auto& [ctrl, target]: _circuit){
+        int distance = cgraph->getDistance(ctrl, target);
+        if ( distance != 1) return false;
+    }
+    return true;
+}
 void Circuit::setInputNum( int i){
     inputNum = i;
 }
@@ -60,7 +67,6 @@ int Circuit::getInputNum(){
 int Circuit::getCircuitSize(){
     return _circuit.size();
 }
-
 template< typename T1, typename T2>
 ostream& operator<< ( ostream& os, const pair< T1, T2>& _pair){
     os << _pair.first << ' ' << _pair.second;

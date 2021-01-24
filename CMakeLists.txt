@@ -3,7 +3,7 @@ PROJECT(CNOT_syn)
 SET(BIN_NAME CNOT_syn)
 
 SET(CMAKE_CXX_FLAGS "-static -O3 -std=c++17 -DIL_STD -lm -pthread ")
-SET(CMAKE_C_FLAGS "-static -O3 -c ")
+SET(CMAKE_C_FLAGS "-static -O3  -c ")
 
 
 SET(BASEPATH ${PROJECT_SOURCE_DIR})

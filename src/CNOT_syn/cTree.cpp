@@ -110,22 +110,25 @@ void CTree::buildR(vector< pair< int, int> >& R, bool star=false){
     while(DFSstack.size() != 0){
         int visitingDerictedCNodeId = DFSstack.top();
         DFSstack.pop();
-        if( star == true){
-            if( cNodes[visitingDerictedCNodeId].isTerminal == true && visitingDerictedCNodeId != rootDirectedId){
-                auto& derictedEdge = cNodes[visitingDerictedCNodeId].edges[0];
-                R.push_back({cNodes[visitingDerictedCNodeId].qubitId, cNodes[derictedEdge].qubitId});
-                R.push_back({cNodes[derictedEdge].qubitId, cNodes[visitingDerictedCNodeId].qubitId});
-            }
-        }
         for( auto& derictedEdge: cNodes[visitingDerictedCNodeId].edges){
             R.push_back({cNodes[visitingDerictedCNodeId].qubitId, cNodes[derictedEdge].qubitId});
             DFSstack.push(derictedEdge);
+        }
+        if( star == true){
+            if( cNodes[visitingDerictedCNodeId].isTerminal == true && visitingDerictedCNodeId != rootDirectedId){
+                auto& derictedEdge = *cNodes[visitingDerictedCNodeId].edges.rbegin();
+                R.push_back({cNodes[derictedEdge].qubitId, cNodes[visitingDerictedCNodeId].qubitId});
+                R.push_back({cNodes[visitingDerictedCNodeId].qubitId, cNodes[derictedEdge].qubitId});
+            }
         }
     }
     reverse(R.begin()+RSizeOld, R.end());
 }
 int  CTree::getRootQId(){
     return cNodes[0].qubitId;
+}
+int CTree:: getQid( int id){
+    return cNodes[id].qubitId;
 }
 ostream& operator<<( ostream& os, const CTree& cTree){
     int count = 0;

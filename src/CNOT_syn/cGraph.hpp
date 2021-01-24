@@ -7,7 +7,8 @@
 #include<sstream>
 #include<unordered_map>
 #include<unordered_set>
-#include <boost/range/adaptor/reversed.hpp>
+#include<boost/range/adaptor/reversed.hpp>
+#include<cmath>
 #include"circuit.hpp"
 #include"cTree.hpp"
 
@@ -28,6 +29,7 @@ class Qubit{
     public:
         void initQubit(int, int, int);
         void neighborsPush_back(int);
+        vector<int>& getneighbors();
         friend class CGraph;
         friend ostream& operator<<(ostream&, Qubit&);
     private:
@@ -39,11 +41,13 @@ class Qubit{
 };
 class CGraph{
     public:
-        Qubit getQubit( int);
+        Qubit& getQubit( int);
         void setQubitsNum( int);
         vector< pair< int, int> >& rowOperations(int, vector< int>&, bool );
         void buildCTree( int, vector< int>&, vector< int>& );
         void buildCTrees( int);// bfs
+        int  getDistance( int, int);
+        unordered_map< pair<int, int>, int, pair_hash>& getCoordinate2qubit();
 
         friend istream& operator>>(istream&, CGraph&);
         friend ostream& operator<<(ostream&, CGraph&);

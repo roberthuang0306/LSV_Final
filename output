@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="1350.0" height="1080.0" viewBox="0 -12 15 12">
+<defs>
+</defs>
+<path d="M3,-3 L3,-6" stroke-width="0.1" stroke="black" />
+<path d="M3,-6 L6,-6" stroke-width="0.1" stroke="black" />
+<path d="M3,-6 L3,-3" stroke-width="0.1" stroke="black" />
+<path d="M6,-6 L9,-6" stroke-width="0.1" stroke="black" />
+<path d="M6,-6 L3,-6" stroke-width="0.1" stroke="black" />
+<path d="M9,-6 L9,-3" stroke-width="0.1" stroke="black" />
+<path d="M9,-6 L6,-6" stroke-width="0.1" stroke="black" />
+<path d="M9,-3 L9,-6" stroke-width="0.1" stroke="black" />
+<circle cx="3" cy="-3" r="0.75" fill="white" fill-opacity="1" stroke-width="0.1" stroke="black" />
+<text x="2.75" y="-2.75" font-size="0.75">0</text>
+<circle cx="3" cy="-6" r="0.75" fill="white" fill-opacity="1" stroke-width="0.1" stroke="black" />
+<text x="2.75" y="-5.75" font-size="0.75">1</text>
+<circle cx="6" cy="-6" r="0.75" fill="white" fill-opacity="1" stroke-width="0.1" stroke="black" />
+<text x="5.75" y="-5.75" font-size="0.75">2</text>
+<circle cx="9" cy="-6" r="0.75" fill="white" fill-opacity="1" stroke-width="0.1" stroke="black" />
+<text x="8.75" y="-5.75" font-size="0.75">3</text>
+<circle cx="9" cy="-3" r="0.75" fill="white" fill-opacity="1" stroke-width="0.1" stroke="black" />
+<text x="8.75" y="-2.75" font-size="0.75">4</text>
+</svg>

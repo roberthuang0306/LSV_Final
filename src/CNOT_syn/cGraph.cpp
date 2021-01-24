@@ -5,8 +5,10 @@ void Qubit::initQubit(int _id, int _x, int _y){id=_id; x=_x; y=_y; };
 void Qubit::neighborsPush_back(int i){
     neighbors.push_back(i);
 }
-
-Qubit CGraph::getQubit( int i){
+vector<int>& Qubit::getneighbors(){
+    return neighbors;
+}
+Qubit& CGraph::getQubit( int i){
     return qubits[i];
 }
 void CGraph::setQubitsNum( int i){
@@ -71,11 +73,13 @@ vector< pair< int, int> >& CGraph::rowOperations(int ctrl, vector< int>& targets
     // init CNodes
     for (int i=fluteTree.deg; i<2*fluteTree.deg-2; i++){
         pair<int, int> CNodeCoordinate = {fluteTree.branch[i].x, fluteTree.branch[i].y};
+
         if( existCoordinate.find(CNodeCoordinate) != existCoordinate.end() ) continue;
         int CNode = coordinate2qubit[CNodeCoordinate];
         CNodes.push_back(CNode);
         existCoordinate.insert(CNodeCoordinate);
     }
+
     buildCTree(ctrl, targets, CNodes );
     pair< int, int> fluteEdge[2];
     int qubitId[2];
@@ -97,8 +101,10 @@ vector< pair< int, int> >& CGraph::rowOperations(int ctrl, vector< int>& targets
     }
     CNotRSMT.traverseIncrease();
     CNotRSMT.buildCTrees(qubit2CNotNode[ctrl], cTrees, u);
+    // cout << "CNotRSMT = \n" << CNotRSMT << endl;
     if ( u == false){
         for( auto& tree: boost::adaptors::reverse(cTrees)){
+            // cout << "tree = \n" << tree << endl;
             vector< pair< int, int>> R;
             vector< pair< int, int>> R_prime;
             vector< pair< int, int>> R_star;
@@ -122,6 +128,7 @@ vector< pair< int, int> >& CGraph::rowOperations(int ctrl, vector< int>& targets
     else{
         assert(cTrees.size() == 1);
         auto& tree = cTrees[0];
+        // cout << "before trim tree = \n" << tree << endl;
         vector< pair< int, int>> R;
         vector< pair< int, int>> R_prime;
         vector< pair< int, int>> R_star;
@@ -132,6 +139,9 @@ vector< pair< int, int> >& CGraph::rowOperations(int ctrl, vector< int>& targets
         }
         R_star = R;
         R_star.insert(R_star.end(), R_prime.begin(), R_prime.end());
+        for( auto& step:R_star){
+            //  << step.first << ' ' << step.second << endl;
+        }
         ctrlTargetPairs.insert(ctrlTargetPairs.end(), R_star.begin(), R_star.end());
 
         R.clear();
@@ -139,17 +149,60 @@ vector< pair< int, int> >& CGraph::rowOperations(int ctrl, vector< int>& targets
         R_star.clear();
         tree.trim();
 
+        // cout << "after trim tree = \n" << tree << endl;
         tree.buildR(R, true);
         for( auto& [ctrl, target]: boost::adaptors::reverse(R)){
             if( ctrl != tree.getRootQId() )R_prime.push_back({ctrl, target});
         }
         R_star = R;
         R_star.insert(R_star.end(), R_prime.begin(), R_prime.end());
+        for( auto& step:R_star){
+            // cout << step.first << ' ' << step.second << endl;
+        }
         ctrlTargetPairs.insert(ctrlTargetPairs.end(), R_star.begin(), R_star.end());
     }
 
     free(fluteTree.branch);
+    auto ctrlTargetPairs_clone = ctrlTargetPairs;
+    ctrlTargetPairs.clear();
+    for( auto& [ctrl, target]: ctrlTargetPairs_clone){
+        vector<int> pass;
+        pair<int, int> ctrlCoordinate= {qubits[ctrl].x, qubits[ctrl].y};
+        pair<int, int> targetCoordinate= {qubits[target].x, qubits[target].y};
+        while( ctrlCoordinate.first != targetCoordinate.first){
+            (ctrlCoordinate.first < targetCoordinate.first)?ctrlCoordinate.first++:ctrlCoordinate.first--;
+            pass.push_back(coordinate2qubit[ctrlCoordinate]);
+        }
+        while( ctrlCoordinate.second != targetCoordinate.second){
+            (ctrlCoordinate.second < targetCoordinate.second)?ctrlCoordinate.second++:ctrlCoordinate.second--;
+            pass.push_back(coordinate2qubit[ctrlCoordinate]);
+        }
+        for(int i = (int)pass.size()-1; i >0; --i){
+            ctrlTargetPairs.push_back({pass[i-1], pass[i]});
+        }
+        ctrlTargetPairs.push_back({ctrl, pass[0]});
+        for(int i = 0; i < (int)pass.size()-1; ++i){
+            ctrlTargetPairs.push_back({pass[i], pass[i+1]});
+        }
+        for(int i = (int)pass.size()-2; i >0; --i){
+            ctrlTargetPairs.push_back({pass[i-1], pass[i]});
+        }
+        if( pass.size() != 1)   ctrlTargetPairs.push_back({ctrl, pass[0]});
+        for(int i = 0; i < (int)pass.size()-2; ++i){
+            ctrlTargetPairs.push_back({pass[i], pass[i+1]});
+        }
+    }
     return ctrlTargetPairs;
+}
+int  CGraph::getDistance( int q1, int q2){
+    int xDistance = abs((qubits[q1].x-qubits[q2].x));
+    int yDistance = abs((qubits[q1].y-qubits[q2].y));
+    return xDistance + yDistance;
+
+}
+
+unordered_map< pair<int, int>, int, pair_hash>& CGraph::getCoordinate2qubit(){
+    return coordinate2qubit;
 }
 ostream& operator<<(ostream& os, Qubit& qubit){
     os << qubit.id << " (" << qubit.x << ',' << qubit.y << ") {";

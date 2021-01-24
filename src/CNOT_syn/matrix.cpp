@@ -23,13 +23,13 @@ Circuit Matrix::circuit( int m){
 }
 
 Circuit Matrix::circuit(){
-    int m = floor( log2(rowSize()));
+    int m = floor( (log2(rowSize()))/2);
     return circuit( m);
 }
 
 Circuit Matrix::circuit( CGraph* cgraph){
     if( cgraph != NULL ){
-        readLUT();
+        // readLUT();
     }
     Circuit circuit_l = Lwr_CNOT_Synth( 1, cgraph, false);
     transpose();
@@ -98,7 +98,7 @@ Circuit Matrix::Lwr_CNOT_Synth( int m, CGraph* cgraph=NULL, bool u=false){
                 }
             }
             for( auto& target: targets){
-                    // cout << "Step A: add row " << fromRow << " to row " << toRow << endl;
+                    // cout << "Step A: add row " << ctrl << " to row " << target << endl;
                     rowOperation(ctrl, target);
                     circuit.push_back(make_pair(ctrl, target));
                     // cout << *this << endl;
@@ -130,30 +130,27 @@ Circuit Matrix::Lwr_CNOT_Synth( int m, CGraph* cgraph=NULL, bool u=false){
                                 circuit.push_back(make_pair(ctrl, target));
                                 // cout << *this << endl;
                             }
-                            cout << "step B" << endl;
-                            cout << *this << endl;
+                            // cout << "step B" << endl;
+                            // cout << *this << endl;
                         }
                         diagOne = true;
                     }
                     int fromRow = column;
                     int toRow = row;
+                    if( cgraph == NULL){
                     // cout << "Step C: Add row " << fromRow << " to row " << toRow << endl;
-                    // rowOperation(fromRow, toRow);
-                    // circuit.push_back(make_pair(fromRow, toRow));
+                        rowOperation(fromRow, toRow);
+                        circuit.push_back(make_pair(fromRow, toRow));
                     // cout << *this << endl;
-                    if ( ctrl == -1) ctrl = fromRow;
-                    targets.push_back(toRow);
+                    }
+                    else{
+                        if ( ctrl == -1) ctrl = fromRow;
+                        targets.push_back(toRow);
+                    }
                 }
             }
         }
-        if( cgraph == NULL){
-            for( auto& target: targets){
-                    // cout << "Step C: Add row " << ctrl << " to row " << target << endl;
-                    rowOperation(ctrl, target);
-                    circuit.push_back(make_pair(ctrl, target));
-                    // cout << *this << endl;
-            }
-        }
+        if( cgraph == NULL){}
         else{
             //TODO
             vector< pair< int, int> >& rowOperations = cgraph->rowOperations(ctrl, targets, u);
@@ -163,8 +160,8 @@ Circuit Matrix::Lwr_CNOT_Synth( int m, CGraph* cgraph=NULL, bool u=false){
                     circuit.push_back(make_pair(ctrl, target));
                     // cout << *this << endl;
             }
-            cout << "step C" << endl;
-            cout << *this << endl;
+            // cout << "step C" << endl;
+            // cout << *this << endl;
         }
 
     }

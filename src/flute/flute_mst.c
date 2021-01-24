@@ -46,7 +46,7 @@ void preprocess_edges(int num_edges, int *edges, DTYPE *len,
 		      int *e, int *p, int *es);
 
 #define init_queue(q) { q[1] = 2; }
-inline void enqueue(int **q, int e)
+void enqueue(int **q, int e)
 {
   int _qsize;
   if ((*q)[0]==(*q)[1]) { 
